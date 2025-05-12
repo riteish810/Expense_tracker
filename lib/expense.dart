@@ -1,25 +1,30 @@
-// ignore_for_file: unused_field
-
 import 'package:expense_tracker/models/expenses.dart';
+import 'package:expense_tracker/screens/expense_list.dart';
 import 'package:flutter/material.dart';
 
 class Expense extends StatefulWidget {
-  Expense({super.key});
-  final List<Expenses> _registeredexpense = [
+  const Expense({super.key});
+
+  @override
+  State<Expense> createState() => _ExpenseState();
+}
+
+class _ExpenseState extends State<Expense> {
+  final List<Expenses> _registeredExpenses = [
     Expenses(
-      DateTime: DateTime.now(),
+      date: DateTime.now(),
       amount: 100,
-      title: 'Fluttercourse',
+      title: 'Flutter course',
       category: Category.food,
     ),
     Expenses(
-      DateTime: DateTime.now(),
+      date: DateTime.now(),
       amount: 10,
-      title: 'cinema',
+      title: 'Cinema',
       category: Category.leisure,
     ),
     Expenses(
-      DateTime: DateTime.now(),
+      date: DateTime.now(),
       amount: 200,
       title: 'Food',
       category: Category.food,
@@ -27,20 +32,13 @@ class Expense extends StatefulWidget {
   ];
 
   @override
-  State<Expense> createState() => _ExpenseState();
-}
-
-class _ExpenseState extends State<Expense> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text('Expense Tracker')),
       body: Column(
         children: [
-          Text('The Expense Chart'),
-          Container(),
-          Container(),
-          Container(),
+          const Text('The Expense Chart'),
+          Expanded(child: ExpenseList(expenses: _registeredExpenses)),
         ],
       ),
     );
