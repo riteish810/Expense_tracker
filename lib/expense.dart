@@ -15,13 +15,13 @@ class Expense extends StatefulWidget {
     Expenses(
       DateTime: DateTime.now(),
       amount: 10,
-      title: 'Fluttercourse',
+      title: 'cinema',
       category: Category.leisure,
     ),
     Expenses(
       DateTime: DateTime.now(),
       amount: 200,
-      title: 'Fluttercourse',
+      title: 'Food',
       category: Category.food,
     ),
   ];
