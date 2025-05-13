@@ -8,22 +8,40 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
+  // var _enteredtitle = ' ';
+  // void _savetitleinput(String inputvalue) {
+  //   _enteredtitle = inputvalue;
+  // }
+  final _titlecontroller = TextEditingController();
   @override
+  void dispose() {
+    _titlecontroller.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16),
-      child: Scaffold(
-        body: Column(
-          children: [
-            TextFormField(
-              maxLength: 50,
-              decoration: InputDecoration(label: Text('Title')),
-            ),
-            Row(children: [TextField()]),
-            Row(children: [TextField()]),
-            Row(children: [TextField()]),
-          ],
-        ),
+      child: Column(
+        children: [
+          TextFormField(
+            // onChanged: _savetitleinput,
+            // onChanged: titlecontroller,
+            controller: _titlecontroller,
+            maxLength: 50,
+            decoration: InputDecoration(label: Text('Title')),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  print(_titlecontroller.text);
+                },
+                child: Text('Save Expense'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
