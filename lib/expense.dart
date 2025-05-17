@@ -11,29 +11,17 @@ class Expense extends StatefulWidget {
 }
 
 class _ExpenseState extends State<Expense> {
-  final List<Expenses> _registeredExpenses = [
-    Expenses(
-      date: DateTime.now(),
-      amount: 100,
-      title: 'Flutter course',
-      category: Category.food,
-    ),
-    Expenses(
-      date: DateTime.now(),
-      amount: 10,
-      title: 'Cinema',
-      category: Category.leisure,
-    ),
-    Expenses(
-      date: DateTime.now(),
-      amount: 200,
-      title: 'Food',
-      category: Category.food,
-    ),
-  ];
+  final List<Expenses> _registeredExpenses = [];
 
   void _addopenoverlay() {
     showModalBottomSheet(context: context, builder: (ctx) => NewExpense());
+  }
+
+  void _addexpense(Expenses expense) {
+    // <-- use the correct model class
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
   }
 
   @override

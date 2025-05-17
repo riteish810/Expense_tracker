@@ -15,6 +15,8 @@ class _NewExpenseState extends State<NewExpense> {
   // }
   final _titlecontroller = TextEditingController();
   final _amoutcontroller = TextEditingController();
+  Category _selectedCategory = Category.food; // default value
+
   DateTime? _selectedDate;
   @override
   void dispose() {
@@ -35,6 +37,37 @@ class _NewExpenseState extends State<NewExpense> {
     setState(() {
       _selectedDate = pickeddate;
     });
+  }
+
+  void _submitExpensedata() {
+    final enterednumber = double.tryParse(
+      _amoutcontroller.text,
+    ); //tryparse ('Hello')=> null, tryparse ('1.12')=>1.12
+    final amountIsInvalid = enterednumber == null || enterednumber <= 0;
+    if (_titlecontroller.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      //Show error message
+      showDialog(
+        context: context,
+        builder:
+            (ctx) => AlertDialog(
+              title: Text('Invalid Input'),
+              content: Text(
+                'Please make sure Entered title , Amount , Date and Category is valid',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); //as builder given ctx value
+                  },
+                  child: Text('Okay'),
+                ),
+              ],
+            ),
+      );
+      return;
+    }
   }
 
   Widget build(BuildContext context) {
@@ -83,6 +116,27 @@ class _NewExpenseState extends State<NewExpense> {
 
           Row(
             children: [
+              DropdownButton<Category>(
+                value: _selectedCategory,
+                items:
+                    Category.values.map((category) {
+                      return DropdownMenuItem<Category>(
+                        value: category,
+                        child: Text(
+                          category.name[0].toUpperCase() +
+                              category.name.substring(1),
+                        ),
+                      );
+                    }).toList(),
+                onChanged: (Category? newValue) {
+                  if (newValue == null) return;
+                  setState(() {
+                    _selectedCategory = newValue;
+                  });
+                },
+              ),
+
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -90,10 +144,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () {
-                  print(_titlecontroller.text);
-                  print(_amoutcontroller.text);
-                },
+                onPressed: _submitExpensedata,
                 child: Text('Save Expense'),
               ),
             ],
