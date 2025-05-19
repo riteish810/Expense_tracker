@@ -4,7 +4,8 @@ import 'package:expense_tracker/screens/new_expense.dart';
 import 'package:flutter/material.dart';
 
 class Expense extends StatefulWidget {
-  const Expense({super.key});
+  const Expense({super.key, required this.onAddExpense});
+  final void Function(Expenses expense) onAddExpense;
 
   @override
   State<Expense> createState() => _ExpenseState();
@@ -14,7 +15,10 @@ class _ExpenseState extends State<Expense> {
   final List<Expenses> _registeredExpenses = [];
 
   void _addopenoverlay() {
-    showModalBottomSheet(context: context, builder: (ctx) => NewExpense());
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => NewExpense(onAddExpense: _addexpense),
+    );
   }
 
   void _addexpense(Expenses expense) {

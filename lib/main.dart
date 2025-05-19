@@ -1,4 +1,5 @@
 import 'package:expense_tracker/expense.dart';
+import 'package:expense_tracker/models/expenses.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
 
-      home: Expense(),
+      home: Expense(onAddExpense: (Expenses expense) {}),
       theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
     );
