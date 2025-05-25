@@ -1,23 +1,24 @@
-import 'package:expense_tracker/expense.dart';
-import 'package:expense_tracker/models/expenses.dart';
 import 'package:flutter/material.dart';
+import 'package:expense_tracker/widgets/expenses.dart';
+
+var kColorscheme = ColorScheme.fromSeed(
+  seedColor: Color.fromARGB(255, 96, 59, 151),
+);
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-
-      home: Expense(onAddExpense: (Expenses expense) {}),
-      theme: ThemeData(useMaterial3: true),
+  runApp(
+    MaterialApp(
       debugShowCheckedModeBanner: false,
-    );
-  }
+      theme: ThemeData().copyWith(
+        useMaterial3: true,
+        colorScheme: kColorscheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kColorscheme.primaryContainer,
+          foregroundColor: kColorscheme.primaryContainer,
+        ),
+        scaffoldBackgroundColor: Colors.purple[200]!,
+      ),
+      home: const Expenses(),
+    ),
+  );
 }
